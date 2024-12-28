@@ -14,9 +14,11 @@
                     {{-- <livewire:admin-schedule-day-class-details-component /> --}}
                     <div class="mt-4 "></div>
                     {{-- <livewire:admin-schedule-subject-allotment-component /> --}}
+                    @livewire('admin-schedule-subject-allotment-component')
                     
-                    <div class="mt-4 "></div>
-                    <livewire:admin-schedule-details-component />
+                    <div class="mt-4 "></div>                    
+                    @livewire('admin-schedule-details-component')
+                    
                 </div>
             </div>
         </div>

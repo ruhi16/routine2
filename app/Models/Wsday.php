@@ -18,9 +18,16 @@ class Wsday extends Model
     }
 
 
+    /*
     public function wsclassdays(){
         return $this->hasMany(Wsclassday::class, 'wsday_id', 'id');
         // 'wsday_id' is the foreign key in the wsclassdays table
+        // 'id' is the primary key in the wsdays table
+    }*/
+
+    public function wsweeklyschedules(){
+        return $this->hasMany(Wsweeklyschedule::class, 'wsday_id', 'id');
+        // 'wsday_id' is the foreign key in the wsweeklyschedules table
         // 'id' is the primary key in the wsdays table
     }
 

@@ -12,7 +12,7 @@
 
         <!-- Scripts -->
         <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/bootstrap.js') }}" defer></script>
 

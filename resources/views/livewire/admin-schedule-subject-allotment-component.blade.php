@@ -50,19 +50,26 @@
 
                         @forelse($page_wsclasssubjects as $page_wsclasssubject)
                         {{ $page_wsclasssubject->wssubject->name_in_short }}:<br />
-                          @php
-                          $page_wsclasssectionsubjectteachers = $wsclasssectionsubjectteachers
-                          ->where('wsclass_id', $wsclasssection->wsclass_id)
-                          ->where('wssection_id', $wsclasssection->wssection_id)
-                          ->where('wssubject_id', $wssubject->id);
-                          @endphp
+                            @php
+                            $page_wsclasssectionsubjectteachers = $wsclasssectionsubjectteachers
+                                ->where('wsclass_id', $wsclasssection->wsclass_id)
+                                ->where('wssection_id', $wsclasssection->wssection_id)
+                                ->where('wssubject_id', $wssubject->id);
+                            @endphp
 
-                          @foreach($page_wsclasssectionsubjectteachers as $page_wsclasssectionsubjectteacher)
-                          {{-- {{ $page_wsclasssectionsubjectteacher->wssubject->name_in_short }}- --}}
-                          {{ $page_wsclasssectionsubjectteacher->wsteacher->name_alias ?? 'x'}}
-                          {{ $page_wsclasssectionsubjectteacher->weekly_total_periods ?? 'x' }}
-                          <br />
-                          @endforeach
+                            @foreach($page_wsclasssectionsubjectteachers as $page_wsclasssectionsubjectteacher)
+                                {{-- {{ $page_wsclasssectionsubjectteacher->wssubject->name_in_short }}- --}}
+                                @if($page_wsclasssectionsubjectteacher->is_classteacher == 1)
+                                    <span class="bg-red-500 text-white px-2">
+                                    {{ $page_wsclasssectionsubjectteacher->wsteacher->name_alias ?? 'x'}}
+                                    {{ $page_wsclasssectionsubjectteacher->weekly_total_periods ?? 'x' }}
+                                    </span>
+                                @else
+                                    {{ $page_wsclasssectionsubjectteacher->wsteacher->name_alias ?? 'x'}}
+                                    {{ $page_wsclasssectionsubjectteacher->weekly_total_periods ?? 'x' }}
+                                @endif
+                                <br />
+                            @endforeach
 
 
                         @empty

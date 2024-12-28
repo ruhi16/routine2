@@ -11,7 +11,11 @@ class Wsperiod extends Model
     protected $guarded = ['id'];
 
 
-
+    public function wsweeklyschedules(){
+        return $this->hasMany(Wsweeklyschedule::class, 'wsperiod_id', 'id');
+        // 'wsperiod_id' is the foreign key in the wsweeklyschedules table
+        // 'id' is the primary key in the wsperiods table
+    }
 
 
 

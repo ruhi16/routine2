@@ -26,6 +26,13 @@ class Wssection extends Model
     }   
 
 
+    public function wsweeklyschedules(){
+        return $this->hasMany(Wsweeklyschedule::class, 'wssection_id', 'id');
+        // 'school_id' is the foreign key in the wssections table
+        // 'id' is the primary key in the schools table
+    }
+
+
 
 
 

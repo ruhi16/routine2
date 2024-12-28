@@ -1,0 +1,58 @@
+
+	{{-- Hello! <span class="font-bold">{{ auth()->user()->name }}</span> You're logged in! --}}
+
+	{{-- @foreach($clsSecs as $clsSec)
+		{{ $clsSec->wsclass->name }}-{{ $clsSec->wssection->name }}:
+		 @foreach($clsSec->wsclass->wsclasssubjects as $wsclasssubject)
+
+		 	@if($wsclasssubject->wssubject->subject_type == 'Summative' && $wsclasssubject->is_additional == false)
+				{{ $wsclasssubject->wssubject->name }},
+			
+			@endif
+
+		 @endforeach
+		<br/>
+	@endforeach --}}
+
+
+
+	@foreach($this->findClass_ActiveSubjects(5) as $classSubjects)
+		{{-- {{ $classSubjects->wssubject->name }}, --}}
+		{{ $classSubjects }},
+	@endforeach
+
+
+	{{ $this->assignClassSection_ActiveSubjects() }}
+	{{-- @foreach($classSectionActiveSubjects as $classSectionActiveSubject) --}}
+		xx{{ json_encode( $this->classSectionActiveSubjects ) }}yy
+	{{-- @endforeach --}}
+
+
+
+
+        foreach($this->wsclasssections as $wsclasssection){
+            $this->classSectionActiveSubjects[$wsclasssection->wsclass_id][$wsclasssection->wssection_id] 
+                = $this->findClass_ActiveSubjects($wsclasssection->wsclass_id);
+
+            // $wsclasssection->wssubjects()->sync($classSubjects);
+            // $wsclasssection->wssubjects()->syncWithoutDetaching($classSubjects);            
+        }
+        
+
+
+{{-- {{ json_encode( $data ) }} --}}
+
+	{{-- @foreach($data as $key => $value)
+		Subject_id: {{ $key }}-{{ json_encode( $value )  }}<br/><br/>
+		@foreach($value as $key2 => $value2)
+			=={{ $key2 }}-{{ json_encode( $value2 )  }}<br/>
+			@if($value2['is_class_teacher'] == 1)
+				xx{{ $value2['is_class_teacher'] }}
+				@php $clTeacher = $value; @endphp
+			@endif
+		@endforeach
+	@endforeach --}}
+	{{-- {{ shuffle( $clTeacher ) }} --}}
+	{{-- Class Teacher:{{ json_encode(  $clTeacher  ) }} --}}
+
+

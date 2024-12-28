@@ -28,13 +28,17 @@ class Wsteacher extends Model
 
 
 
-    public function wsclassteachers(){
-        return $this->hasMany(Wsclassteacher::class, 'wsteacher_id', 'id');
+    // public function wsteachers(){
+    //     return $this->hasMany(Wsteacher::class, 'wsteacher_id', 'id');
+    //     // 'wsteacher_id' is the foreign key in the wsteachers table
+    //     // 'id' is the primary key in the schools table
+    // }
+
+    public function wsweeklyschedule(){
+        return $this->hasMany(Wsweeklyschedule::class, 'wsteacher_id', 'id');
         // 'wsteacher_id' is the foreign key in the wsteachers table
         // 'id' is the primary key in the schools table
     }
-
-
 
 
 

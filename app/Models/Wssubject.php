@@ -29,6 +29,21 @@ class Wssubject extends Model
 
 
 
+    public function wsweeklyschedule(){
+        return $this->hasMany(Wsweeklyschedule::class, 'wssubject_id', 'id');
+        // 'wssubject_id' is the foreign key in the wsclasssectionsubjectteacherweektps table
+        // 'id' is the primary key in the wssubjects table
+    }
+
+
+
+
+
+
+
+
+
+
     public function school(){
         return $this->belongsTo(School::class, 'school_id', 'id');
         // 'school_id' is the foreign key in the wssubjects table

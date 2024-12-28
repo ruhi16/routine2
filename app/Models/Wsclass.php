@@ -45,22 +45,27 @@ class Wsclass extends Model
         // 'id' is the primary key in the schools table
     }
 
+    public function wsweeklyschedules(){
+        return $this->hasMany(Wsweeklyschedule::class, 'wsclass_id', 'id');
+        // 'wsclass_id' is the foreign key in the wsweeklyschedules table
+        // 'id' is the primary key in the schools table
+    }
+
+
+    /*
     public function wsclassteachers(){
         return $this->hasMany(Wsclassteacher::class, 'wsclass_id', 'id');
         // 'wsclass_id' is the foreign key in the wsclassteachers table
         // 'id' is the primary key in the schools table
     }
 
-
-
-
-
-
     public function wsclassdays(){
         return $this->hasMany(Wsclassday::class, 'wsclass_id', 'id');
         // 'wsclass_id' is the foreign key in the wsclassdays table
         // 'id' is the primary key in the schools table
     }
+    */
+
 
     public function wsclasssectionsubjectteacherweektps(){
         return $this->hasMany(Wsclasssectionsubjectteacherweektp::class, 'wsclass_id', 'id');
