@@ -45,7 +45,6 @@ return [
     |--------------------------------------------------------------------------
     | Livewire Assets URL
     |--------------------------------------------------------------------------
-    | Create layout files within the resources/views/layouts directory.
     |
     | This value sets the path to Livewire JavaScript assets, for cases where
     | your app's domain root is not the correct path. By default, Livewire

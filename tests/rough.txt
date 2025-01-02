@@ -56,3 +56,15 @@
 	{{-- Class Teacher:{{ json_encode(  $clTeacher  ) }} --}}
 
 
+{{-- {{ $this->assignClassSection_ActiveSubjects() }} --}}
+	{{-- {{ $this->assignDayPeriodOne() }} --}}
+
+	{{-- {{ $this->assignDayPeriodTwo() }} --}}
+
+	{{-- xx{{ json_encode( $this->classSectionActiveSubjects[6][2][1]) }} --}}
+
+	@php 
+		// $data = $this->classSectionActiveSubjects[6][2];
+		$clTeacher = null;
+	@endphp
+	{{-- {{ json_encode( $this->classSectionActiveSubjects[6][2] ) }} --}}

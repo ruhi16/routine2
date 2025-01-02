@@ -28,6 +28,7 @@ class CreateWsclasssectionsubjectteacherweektpsTable extends Migration
             $table->unsignedBigInteger('wsteacher_id');
             // $table->foreign('wsteacher_id')->references('id')->on('wsteachers')->onDelete('cascade');
 
+            $table->boolean('is_classteacher')->default(0)->nullable();
 
             
             $table->unsignedBigInteger('weekly_total_periods')->nullable();

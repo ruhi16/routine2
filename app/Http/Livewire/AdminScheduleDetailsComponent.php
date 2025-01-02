@@ -20,31 +20,35 @@ use App\Models\Wsteacher;
 use App\Models\Wsweeklyschedule;
 
 class AdminScheduleDetailsComponent extends Component{
-    public $wsdays;
-    public $wsclasses;
-    public $wsclassdaytps;
+    public $wsdays = null;
+    public $wsclasses = null;
+    public $wsclassdaytps = null;
 
-    public $wsclasssections;
-
-
-    public $wssubjects;
-    public $wsclasssubjects;
-
-    public $wsclasssectionsubjectteachers;
-
-    public $wsperiods;
+    public $wsclasssections = null;
 
 
-    public $clsSecs;
-    public $classSectionActiveSubjects;
-    public $activeTeachers;
-    public $allTeachers;
+    public $wssubjects = null;
+    public $wsclasssubjects = null;
+
+    public $wsclasssectionsubjectteachers = null;
+
+    public $wsperiods = null;
 
 
-    public $weeklySchedules;
+    public $clsSecs = null;
+    public $classSectionActiveSubjects = null;
+    public $activeTeachers = null;
+    public $allTeachers = null;
 
-    public $only_active_subjects;
 
+    public $weeklySchedules = null;
+
+    public $allSubjects = null;
+    public $scheduledSubjects = null;
+    public $only_active_subjects = null;
+
+
+    public $test_val = 5;
 
     public function mount(){
         $this->wsdays = Wsday::all();
@@ -66,7 +70,7 @@ class AdminScheduleDetailsComponent extends Component{
         $this->wsperiods = Wsperiod::all();
 
         $this->allTeachers = Wsteacher::all();
-        $this->weeklySchedules = Wsweeklyschedule::all();
+        $this->refreshScheduleDetails();
 
     }
 
@@ -87,10 +91,15 @@ class AdminScheduleDetailsComponent extends Component{
     }
 
 
+
+    public function test_func(){
+        $this->test_val = $this->test_val + 1;
+    }
+
     public function assignClassSection_ActiveSubjects(){
         foreach($this->wsclasssections as $wsclasssection){
-            $allSubjects = $this->findClass_ActiveSubjects($wsclasssection->wsclass_id);
-            $scheduledSubjects = Wsweeklyschedule::
+            $this->allSubjects = $this->findClass_ActiveSubjects($wsclasssection->wsclass_id);
+            $this->scheduledSubjects = Wsweeklyschedule::
                 where('wsday_id', 1)
                 ->where('wsclass_id', $wsclasssection->wsclass_id)
                 ->where('wssection_id', $wsclasssection->wssection_id)
@@ -98,7 +107,7 @@ class AdminScheduleDetailsComponent extends Component{
                 ->toArray()
                 ;
 
-            $this->only_active_subjects = array_diff($allSubjects, $scheduledSubjects);
+            $this->only_active_subjects = array_diff($this->allSubjects, $this->scheduledSubjects);
 
 
             foreach($this->only_active_subjects as $classSubject){
@@ -125,32 +134,27 @@ class AdminScheduleDetailsComponent extends Component{
         }
     }
 
-    public function assignDayPeriodOne($day_id = 1, $period_id = 1){
 
+
+    public function assignDayPeriodOne($day_id = 1, $period_id = 1){
+        $this->assignClassSection_ActiveSubjects();
+        
         // $classSectionSubjectCombinations = $this->classSectionActiveSubjects[6][2];
         foreach($this->wsclasssections as $wsclasssection){
+            // dd($wsclasssection->wsclass_id, $wsclasssection->wssection_id);
             $classSectionSubjectCombinations = $this->classSectionActiveSubjects[$wsclasssection->wsclass_id][$wsclasssection->wssection_id];
-        
+            
             foreach($classSectionSubjectCombinations as $key => $classSectionSubjectCombination){
+                // $key = wssubject_id
 
                 foreach($classSectionSubjectCombination as $classSectionSubject){
-                    if($period_id = 1 && $classSectionSubject['is_class_teacher'] == 1){
+                    if($period_id == 1 && $classSectionSubject['is_class_teacher'] == 1){
                         // dd($day_id, $period_id, 6, 2, $key, $classSectionSubject['teacher_id']);
+                        // dd($day_id, $period_id, $wsclasssection->wsclass_id, $wsclasssection->wssection_id, $key, $classSectionSubject['teacher_id']);
                         $this->assignWeeklySchedule($day_id, $period_id, $wsclasssection->wsclass_id, $wsclasssection->wssection_id, $key, $classSectionSubject['teacher_id']);
 
                     }
-                    // else{
-                    //     $teacher_id = $classSectionSubject['teacher_id'];
-                    //     $data = Wsweeklyschedule::where('wsday_id', $day_id)
-                    //         ->where('wsperiod_id', $period_id)
-                    //         ->where('wsteacher_id', $teacher_id)
-                    //         ->get();
-                    //     if($data == null || $data->count() == 0){
-                    //         $this->assignWeeklySchedule($day_id, $period_id, $wsclasssection->wsclass_id, $wsclasssection->wssection_id, $key, $classSectionSubject['teacher_id']);
-                    //     }
-
-
-                    // }
+                    
                 }
 
             }
@@ -219,7 +223,7 @@ class AdminScheduleDetailsComponent extends Component{
                 ->where('wssubject_id', $subject_id)
                 ->where('wsteacher_id', $teacher_id)
                 ->count();
-            
+            // dd($weekly_total_periods_alloted);
             Wsclasssectionsubjectteacherweektp::where('wsclass_id', $class_id)
                 ->where('wssection_id', $section_id)
                 ->where('wssubject_id', $subject_id)
@@ -233,7 +237,7 @@ class AdminScheduleDetailsComponent extends Component{
             // ]);
         
         
-
+            $this->refreshScheduleDetails();
             session()->flash('message', 'Class Schedule Updated Successfully');
         }catch(\Exception $e){
             session()->flash('error', 'Error saving class schedule: ' . $e->getMessage());
@@ -272,7 +276,7 @@ class AdminScheduleDetailsComponent extends Component{
             ]);
         
         
-
+            $this->refreshScheduleDetails();
             session()->flash('message', 'Class Schedule Updated Successfully');
         }catch(\Exception $e){
             session()->flash('error', 'Error saving class schedule: ' . $e->getMessage());
@@ -306,5 +310,9 @@ class AdminScheduleDetailsComponent extends Component{
 
     public function render(){
         return view('livewire.admin-schedule-details-component');
+    }
+
+    public function refreshScheduleDetails(){
+        $this->weeklySchedules = Wsweeklyschedule::all();
     }
 }
