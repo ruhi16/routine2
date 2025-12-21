@@ -3,9 +3,9 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Wsclasssubjectweektp;
+use App\Models\Wsclasssectionsubjectwtp;
 
-use App\Models\Wsclassdaytp;
+use App\Models\Wsclasssection;
 use App\Models\Wsclass;
 use App\Models\Wssubject;
 // use App\Models\Teacher;
@@ -29,7 +29,7 @@ class ClassSubjectWiseWtpComponent extends Component
 
     public function mount()
     {
-        $this->classSubjectDetails = Wsclasssubjectweektp::
+        $this->classSubjectDetails = Wsclasssectionsubjectwtp::
             all();
         $this->myclasses = Wsclass::all();
         
@@ -42,7 +42,7 @@ class ClassSubjectWiseWtpComponent extends Component
         $this->subjects = Wssubject::where('subject_type', 'Summative')->get();
         $this->classSubjectsData = [];
 
-        $classSubjectPeriods = Wsclasssubjectweektp::where('wsclass_id', $classId)
+        $classSubjectPeriods = Wsclasssectionsubjectwtp::where('wsclass_id', $classId)
             ->get()
             ->keyBy('wssubject_id');
 
@@ -68,20 +68,30 @@ class ClassSubjectWiseWtpComponent extends Component
             return;
         }
 
+        $classSections = Wsclasssection::where('wsclass_id', $this->selectedClass->id)->get();
+        // foreach($classSections as $classsection);{
+        //     dd($classsection->wssection->name);
+        // }
+
+        
         foreach ($this->classSubjectsData as $subjectId => $periods) {
             // dd($subjectId, $periods);
-            Wsclasssubjectweektp::updateOrCreate(
+            foreach($classSections as $classsection)
+            Wsclasssectionsubjectwtp::updateOrCreate(
                 [
                     'wsclass_id' => $this->selectedClass->id,
                     'wssubject_id' => $subjectId,
+                    'wssection_id' => $classsection->wssection->id,
                 ],
                 [
                     'weekly_total_periods' => $periods ?: 0,
+                    'school_id' => $this->selectedClass->school_id,
+                    'session_id' => $this->selectedClass->session_id
                 ]
             );
         }
 
-        $this->classSubjectDetails = Wsclasssubjectweektp::all();
+        $this->classSubjectDetails = Wsclasssectionsubjectwtp::all();
 
         $this->closeModal();
         

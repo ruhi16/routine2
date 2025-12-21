@@ -14,7 +14,7 @@ class Wsclass extends Model
 
 /*
     public function wssections(){
-        return $this->hasMany(Wssection::class, 'wsclass_id', 'id');
+        return $this->hasMany(Wssection::class, 'wssection_id', 'id');
         // 'school_id' is the foreign key in the wssections table
         // 'id' is the primary key in the schools table
     }
@@ -31,7 +31,7 @@ class Wsclass extends Model
         // 'wsclass_id' is the foreign key in the wsteachers table
         // 'id' is the primary key in the schools table
     }
-*/
+
     public function wsclasssections(){
         return $this->hasMany(Wsclasssection::class, 'wsclass_id', 'id');
         // 'wsclass_id' is the foreign key in the wsclasssections table
@@ -52,9 +52,9 @@ class Wsclass extends Model
     }
 
 
-    /*
+    
     public function wsclassteachers(){
-        return $this->hasMany(Wsclassteacher::class, 'wsclass_id', 'id');
+        // return $this->hasMany(Wsclassteacher::class, 'wsclass_id', 'id');
         // 'wsclass_id' is the foreign key in the wsclassteachers table
         // 'id' is the primary key in the schools table
     }

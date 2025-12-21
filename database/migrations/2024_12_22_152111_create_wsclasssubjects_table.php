@@ -22,6 +22,9 @@ class CreateWsclasssubjectsTable extends Migration
             $table->unsignedBigInteger('wssubject_id');
             // $table->foreign('wssubject_id')->references('id')->on('wssubjects')->onDelete('cascade');
             
+            $table->unsignedBigInteger('wssection_id');
+            // $table->foreign('wssection_id')->references('id')->on('wssections')->onDelete('cascade');
+            
 
             $table->integer('weekly_total_periods')->default(0)->nullable();
             $table->boolean('is_active')->default(0)->nullable();

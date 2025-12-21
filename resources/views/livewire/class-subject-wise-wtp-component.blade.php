@@ -5,6 +5,7 @@
         </div>
     @endif
 
+    <h1 class="text-2xl font-bold mb-4">Class (Section) Subject Wise Total Periods</h1>
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">

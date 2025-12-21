@@ -1,4 +1,5 @@
 <div class="overflow-x-auto">
+    <h1 class="text-2xl font-bold mb-4">Class Day Wise Total Periods</h1>
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
             <tr>
