@@ -1,6 +1,11 @@
-<div>
-    {{-- @livewire('class-day-wise-tp-component')
-    @livewire('class-subject-wise-wtp-component')   --}}
+
+    {{-- @livewire('admin-schedule-day-class-details-component') --}}
+    {{-- @livewire('admin-schedule-details-component') --}}
+    @livewire('admin-schedule-subject-allotment-component')
+
+
+    {{-- @livewire('class-day-wise-tp-component') --}}
+    @livewire('class-subject-wise-wtp-component')  
     {{-- @livewire('class-section-subject-teacher-wise-wtp-component') --}}
     {{-- @livewire('subject-teacher-component') --}}
     {{-- @livewire('class-section-wise-weekly-schedule-component') --}}

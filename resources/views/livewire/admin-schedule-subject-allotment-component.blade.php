@@ -10,10 +10,7 @@
 
                     <th colspan="{{ $page_wsclasssections->count() }}" class=" px-2 py-1 text-xs font-bold text-gray-900 uppercase tracking-wider border border-gray-500">
                         {{ $wsclass->name }}: (WTP-{{ $wsclassdaytps->where('wsclass_id', $wsclass->id)->sum('daily_total_periods') }})
-
-                        {{-- @foreach($page_wsclasssections as $wsclasssection)
-                    {{ $wsclasssection->wsclass->status ?? 'x'}}-{{ $wsclasssection->wssection->name ?? 'x'}}
-                        @endforeach --}}
+                        
 
                     </th>
                     @endforeach
